@@ -33,18 +33,33 @@
                     </div>
                 </div>
                 <button id="download-modified-btn">Download Modified Image</button>
+                <button id="reset-btn">Reset Image and Filters</button> <!-- New reset button -->
             </div>
         </section>
 
-        <section class="option-section" id="filter-options">
-            <!-- Filters will be dynamically inserted here -->
+        <section class="option-section">
+            <div class="option filter-options">
+                <h2>Filters</h2>
+                <div class="filter-option">
+                    <label><input type="checkbox" class="toggle-filter" data-filter="grayscale"> Grayscale</label>
+                </div>
+                <div class="filter-option">
+                    <label><input type="checkbox" class="toggle-filter" data-filter="sepia"> Sepia</label>
+                </div>
+                <div class="filter-option">
+                    <label><input type="checkbox" class="toggle-filter" data-filter="invert"> Invert</label>
+                </div>
+                <div class="filter-option">
+                    <label><input type="checkbox" class="toggle-filter" data-filter="noise"> Noise</label>
+                </div>
+            </div>
         </section>
     </main>
 
-    <script src="js/filters.js"></script>
     <script src="js/upload.js"></script>
     <script src="js/comparison.js"></script>
     <script src="js/options.js"></script>
-    <script src="js/download.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/download.js"></script> <!-- New download.js file for download functionality -->
 </body>
 </html>

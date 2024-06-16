@@ -1,34 +1,64 @@
-// filters.js
+            // filters.js
 
-// List of available filters
-const filters = [
-    { name: 'grayscale', label: 'Grayscale' },
-    { name: 'sepia', label: 'Sepia' },
-    { name: 'invert', label: 'Invert' },
-    { name: 'noise', label: 'Noise' } // Added noise filter
-];
+            // Function to apply grayscale filter
+            function applyGrayscale(context) {
+                const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+                const data = imageData.data;
 
-// Function to initialize filter options
-function initializeFilters() {
-    const filterOptions = document.getElementById('filter-options');
+                for (let i = 0; i < data.length; i += 4) {
+                    const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                    data[i] = avg; // Red
+                    data[i + 1] = avg; // Green
+                    data[i + 2] = avg; // Blue
+                }
 
-    filters.forEach(filter => {
-        const optionDiv = document.createElement('div');
-        optionDiv.classList.add('option', `${filter.name}-option`);
+                context.putImageData(imageData, 0, 0);
+            }
 
-        const optionToggle = document.createElement('div');
-        optionToggle.classList.add('option-toggle');
+            // Function to apply sepia filter
+            function applySepia(context) {
+                const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+                const data = imageData.data;
 
-        const label = document.createElement('label');
-        label.innerHTML = `<input type="checkbox" class="toggle-filter" data-filter="${filter.name}"> ${filter.label}`;
+                for (let i = 0; i < data.length; i += 4) {
+                    const red = data[i];
+                    const green = data[i + 1];
+                    const blue = data[i + 2];
 
-        optionToggle.appendChild(label);
-        optionDiv.appendChild(optionToggle);
-        filterOptions.appendChild(optionDiv);
-    });
-}
+                    data[i] = Math.min(255, red * 0.393 + green * 0.769 + blue * 0.189); // Red
+                    data[i + 1] = Math.min(255, red * 0.349 + green * 0.686 + blue * 0.168); // Green
+                    data[i + 2] = Math.min(255, red * 0.272 + green * 0.534 + blue * 0.131); // Blue
+                }
 
-// Initialize filters on page load
-document.addEventListener('DOMContentLoaded', () => {
-    initializeFilters();
-});
+                context.putImageData(imageData, 0, 0);
+            }
+
+            // Function to apply invert filter
+            function applyInvert(context) {
+                const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+                const data = imageData.data;
+
+                for (let i = 0; i < data.length; i += 4) {
+                    data[i] = 255 - data[i]; // Red
+                    data[i + 1] = 255 - data[i + 1]; // Green
+                    data[i + 2] = 255 - data[i + 2]; // Blue
+                }
+
+                context.putImageData(imageData, 0, 0);
+            }
+
+            // Function to apply noise filter
+            function applyNoise(context) {
+                const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+                const data = imageData.data;
+                const intensity = 50; // Adjust intensity as needed
+
+                for (let i = 0; i < data.length; i += 4) {
+                    const random = Math.random() * intensity;
+                    data[i] += random; // Red channel
+                    data[i + 1] += random; // Green channel
+                    data[i + 2] += random; // Blue channel
+                }
+
+                context.putImageData(imageData, 0, 0);
+            }
