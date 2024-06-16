@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VHS Effect Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>VHS Effect Generator</h1>
+        <input type="file" id="fileInput" accept="image/*, video/*">
+        <div id="previewContainer">
+            <canvas id="previewCanvas" width="400" height="300"></canvas>
+            <video id="previewVideo" width="400" height="300" controls></video>
+        </div>
+        <div id="options">
+            <label for="scanlinesRange">Scanlines Transparency:</label>
+            <input type="range" id="scanlinesRange" min="0" max="1" step="0.1" value="0.2">
+            
+            <label for="scanlinesIntensity">Scanlines Intensity:</label>
+            <input type="range" id="scanlinesIntensity" min="0" max="1" step="0.1" value="0.1">
+        </div>
+        <button id="applyEffectButton" disabled>Apply VHS Effect</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
