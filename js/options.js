@@ -9,22 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleFilter(checkbox.dataset.filter, checkbox.checked);
         });
     });
-
-    // Add event listeners for filter intensity sliders
-    const intensitySliders = document.querySelectorAll('.intensity-slider');
-    intensitySliders.forEach(slider => {
-        slider.addEventListener('input', () => {
-            updateFilterIntensity(slider.dataset.filter, slider.value);
-        });
-    });
-
-    // Ensure canvas starts with original image
-    const canvas = document.getElementById('modified-canvas');
-    const context = canvas.getContext('2d');
-    const originalImg = document.getElementById('original-image').querySelector('img');
-    canvas.width = originalImg.width;
-    canvas.height = originalImg.height;
-    context.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
 });
 
 // Function to toggle filter visibility
@@ -54,14 +38,79 @@ function toggleFilter(filterName, enabled) {
                 clearFilters(context);
             }
             break;
+        case 'noise':
+            if (enabled) {
+                applyNoise(context);
+            } else {
+                clearFilters(context);
+            }
+            break;
         default:
             break;
     }
 }
 
-// Function to update filter intensity
-function updateFilterIntensity(filterName, intensity) {
-    // Implement intensity adjustments here if needed
+// Function to apply grayscale filter
+function applyGrayscale(context) {
+    const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        data[i] = avg; // Red
+        data[i + 1] = avg; // Green
+        data[i + 2] = avg; // Blue
+    }
+
+    context.putImageData(imageData, 0, 0);
+}
+
+// Function to apply sepia filter
+function applySepia(context) {
+    const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        const red = data[i];
+        const green = data[i + 1];
+        const blue = data[i + 2];
+
+        data[i] = Math.min(255, red * 0.393 + green * 0.769 + blue * 0.189); // Red
+        data[i + 1] = Math.min(255, red * 0.349 + green * 0.686 + blue * 0.168); // Green
+        data[i + 2] = Math.min(255, red * 0.272 + green * 0.534 + blue * 0.131); // Blue
+    }
+
+    context.putImageData(imageData, 0, 0);
+}
+
+// Function to apply invert filter
+function applyInvert(context) {
+    const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        data[i] = 255 - data[i]; // Red
+        data[i + 1] = 255 - data[i + 1]; // Green
+        data[i + 2] = 255 - data[i + 2]; // Blue
+    }
+
+    context.putImageData(imageData, 0, 0);
+}
+
+// Function to apply noise filter
+function applyNoise(context) {
+    const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+    const data = imageData.data;
+    const intensity = 50; // Adjust intensity as needed
+
+    for (let i = 0; i < data.length; i += 4) {
+        const random = Math.random() * intensity;
+        data[i] += random; // Red channel
+        data[i + 1] += random; // Green channel
+        data[i + 2] += random; // Blue channel
+    }
+
+    context.putImageData(imageData, 0, 0);
 }
 
 // Function to clear filters

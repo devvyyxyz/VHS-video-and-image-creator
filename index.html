@@ -19,50 +19,32 @@
         <section class="upload-section">
             <h2>Upload Images</h2>
             <input type="file" id="file-input" accept=".jpg, .jpeg, .png">
-            <div id="original-image" class="comparison-image">
-                <img src="default.png" alt="Default Image">
-            </div>
         </section>
 
         <section class="comparison-section">
             <h2>Comparison</h2>
             <div class="comparison-container">
-                <canvas id="modified-canvas"></canvas>
+                <div class="comparison-wrapper">
+                    <div class="comparison-image" id="original-image">
+                        <img src="default.png" alt="Original Image">
+                    </div>
+                    <div class="comparison-image" id="modified-image">
+                        <canvas id="modified-canvas"></canvas>
+                    </div>
+                </div>
                 <button id="download-modified-btn">Download Modified Image</button>
             </div>
         </section>
 
-        <section class="option-section">
-            <div class="option crt-option">
-                <h2>CRT Filter</h2>
-                <label>Intensity: <input type="range" min="0" max="100" value="0" class="intensity-slider" id="crt-intensity-slider"> <span class="intensity-value">0</span></label><br>
-            </div>
-
-            <div class="option noise-option">
-                <h2>Image Noise</h2>
-                <label>Intensity: <input type="range" min="0" max="100" value="50" class="intensity-slider" id="noise-intensity-slider"> <span class="intensity-value">50</span></label><br>
-            </div>
-
-            <div class="option filter-option">
-                <h2>Filters</h2>
-                <div class="filter-container">
-                    <label><input type="checkbox" class="toggle-filter" data-filter="grayscale"> Grayscale</label><br>
-                    <label>Intensity: <input type="range" min="0" max="100" value="0" class="intensity-slider" id="grayscale-intensity-slider"> <span class="intensity-value">0</span></label><br>
-                    
-                    <label><input type="checkbox" class="toggle-filter" data-filter="sepia"> Sepia</label><br>
-                    <label>Intensity: <input type="range" min="0" max="100" value="0" class="intensity-slider" id="sepia-intensity-slider"> <span class="intensity-value">0</span></label><br>
-                    
-                    <label><input type="checkbox" class="toggle-filter" data-filter="invert"> Invert</label><br>
-                    <!-- Intensity for invert filter is not applicable -->
-                </div>
-            </div>
+        <section class="option-section" id="filter-options">
+            <!-- Filters will be dynamically inserted here -->
         </section>
     </main>
 
+    <script src="js/filters.js"></script>
     <script src="js/upload.js"></script>
     <script src="js/comparison.js"></script>
-    <script src="js/filters.js"></script>
-    <script src="js/download.js"></script>
     <script src="js/options.js"></script>
+    <script src="js/download.js"></script>
 </body>
 </html>
