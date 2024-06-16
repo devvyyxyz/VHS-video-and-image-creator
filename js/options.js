@@ -37,6 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Initialize color bleed intensity slider
+    const colorBleedIntensitySlider = document.getElementById('color-bleed-intensity');
+    colorBleedIntensitySlider.addEventListener('input', () => {
+        if (document.querySelector('.toggle-filter[data-filter="colorBleed"]').checked) {
+            applyColorBleed(parseInt(colorBleedIntensitySlider.value, 10));
+        }
+    });
+
     // Add event listener for reset button if available
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) {
@@ -89,6 +97,13 @@ function toggleFilter(filterName, enabled) {
                 applyJPEGCompression();
             } else {
                 clearJPEGCompression(context);
+            }
+            break;
+        case 'colorBleed':
+            if (enabled) {
+                applyColorBleed(parseInt(document.getElementById('color-bleed-intensity').value, 10));
+            } else {
+                clearColorBleed(context);
             }
             break;
         default:
@@ -279,6 +294,35 @@ function clearJPEGCompression(context) {
     context.drawImage(originalImage, 0, 0, context.canvas.width, context.canvas.height);
 }
 
+// Function to apply color bleed filter
+function applyColorBleed(intensity) {
+    const canvas = document.getElementById('modified-canvas');
+    const context = canvas.getContext('2d');
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        const red = data[i];
+        const green = data[i + 1];
+        const blue = data[i + 2];
+
+        data[i] = Math.min(255, red + intensity); // Red
+        data[i + 1] = Math.min(255, green + intensity); // Green
+        data[i + 2] = Math.min(255, blue + intensity); // Blue
+    }
+
+    context.putImageData(imageData, 0, 0);
+}
+
+// Function to clear color bleed filter
+function clearColorBleed(context) {
+    const originalImage = document.getElementById('original-image').querySelector('img');
+    if (!originalImage) return;
+
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.drawImage(originalImage, 0, 0, context.canvas.width, context.canvas.height);
+}
+
 // Function to reset image and all filters
 function resetImageAndFilters() {
 const canvas = document.getElementById('modified-canvas');
@@ -303,4 +347,6 @@ clearSepia(context);
 clearInvert(context);
 clearNoise(context);
 clearVCRLines(context);
+clearJPEGCompression(context);
+clearColorBleed(context);
 }
