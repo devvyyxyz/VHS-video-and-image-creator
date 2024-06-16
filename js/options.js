@@ -1,29 +1,72 @@
 // options.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Example: Load default filter values from variables
-    const crtIntensitySlider = document.getElementById('crt-intensity-slider');
-    crtIntensitySlider.value = 50; // Example default value for CRT intensity
+    // Initialize filter checkboxes to unchecked state
+    const filterCheckboxes = document.querySelectorAll('.toggle-filter');
+    filterCheckboxes.forEach(checkbox => {
+        checkbox.checked = false; // Ensure filters are initially unchecked
+        checkbox.addEventListener('change', () => {
+            toggleFilter(checkbox.dataset.filter, checkbox.checked);
+        });
+    });
 
-    const noiseIntensitySlider = document.getElementById('noise-intensity-slider');
-    noiseIntensitySlider.value = 50; // Example default value for noise intensity
+    // Add event listeners for filter intensity sliders
+    const intensitySliders = document.querySelectorAll('.intensity-slider');
+    intensitySliders.forEach(slider => {
+        slider.addEventListener('input', () => {
+            updateFilterIntensity(slider.dataset.filter, slider.value);
+        });
+    });
 
-    // Event listeners for sliders or other inputs to apply filters dynamically
-    crtIntensitySlider.addEventListener('input', applyFilters);
-    noiseIntensitySlider.addEventListener('input', applyFilters);
+    // Ensure canvas starts with original image
+    const canvas = document.getElementById('modified-canvas');
+    const context = canvas.getContext('2d');
+    const originalImg = document.getElementById('original-image').querySelector('img');
+    canvas.width = originalImg.width;
+    canvas.height = originalImg.height;
+    context.drawImage(originalImg, 0, 0, canvas.width, canvas.height);
 });
 
-// Function to apply filters based on options
-function applyFilters() {
-    // Example: Get values from sliders and apply filters
-    const crtIntensity = document.getElementById('crt-intensity-slider').value;
-    const noiseIntensity = document.getElementById('noise-intensity-slider').value;
+// Function to toggle filter visibility
+function toggleFilter(filterName, enabled) {
+    const canvas = document.getElementById('modified-canvas');
+    const context = canvas.getContext('2d');
 
-    const modifiedCanvas = document.getElementById('modified-canvas');
-    const modifiedContext = modifiedCanvas.getContext('2d');
+    switch (filterName) {
+        case 'grayscale':
+            if (enabled) {
+                applyGrayscale(context);
+            } else {
+                clearFilters(context);
+            }
+            break;
+        case 'sepia':
+            if (enabled) {
+                applySepia(context);
+            } else {
+                clearFilters(context);
+            }
+            break;
+        case 'invert':
+            if (enabled) {
+                applyInvert(context);
+            } else {
+                clearFilters(context);
+            }
+            break;
+        default:
+            break;
+    }
+}
 
-    // Example: Apply filters using imported functions from filters.js
-    applyGrayscale(modifiedContext); // Example filter
+// Function to update filter intensity
+function updateFilterIntensity(filterName, intensity) {
+    // Implement intensity adjustments here if needed
+}
 
-    // Apply additional filters as needed
+// Function to clear filters
+function clearFilters(context) {
+    const canvas = document.getElementById('modified-canvas');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(document.getElementById('original-image').querySelector('img'), 0, 0, canvas.width, canvas.height);
 }

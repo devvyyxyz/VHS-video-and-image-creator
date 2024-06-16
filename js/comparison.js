@@ -24,8 +24,8 @@ function initializeComparison() {
         // Draw original image on canvas
         modifiedContext.drawImage(originalImageElement, 0, 0, modifiedCanvas.width, modifiedCanvas.height);
 
-        // Apply filters
-        applyFilters(modifiedContext);
+        // Do not apply filters on initialization
+        // applyFilters(modifiedContext);
     };
 }
 

@@ -42,6 +42,20 @@
                 <h2>Image Noise</h2>
                 <label>Intensity: <input type="range" min="0" max="100" value="50" class="intensity-slider" id="noise-intensity-slider"> <span class="intensity-value">50</span></label><br>
             </div>
+
+            <div class="option filter-option">
+                <h2>Filters</h2>
+                <div class="filter-container">
+                    <label><input type="checkbox" class="toggle-filter" data-filter="grayscale"> Grayscale</label><br>
+                    <label>Intensity: <input type="range" min="0" max="100" value="0" class="intensity-slider" id="grayscale-intensity-slider"> <span class="intensity-value">0</span></label><br>
+                    
+                    <label><input type="checkbox" class="toggle-filter" data-filter="sepia"> Sepia</label><br>
+                    <label>Intensity: <input type="range" min="0" max="100" value="0" class="intensity-slider" id="sepia-intensity-slider"> <span class="intensity-value">0</span></label><br>
+                    
+                    <label><input type="checkbox" class="toggle-filter" data-filter="invert"> Invert</label><br>
+                    <!-- Intensity for invert filter is not applicable -->
+                </div>
+            </div>
         </section>
     </main>
 
