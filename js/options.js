@@ -29,6 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Initialize JPEG compression intensity slider
+    const jpegIntensitySlider = document.getElementById('jpeg-intensity');
+    jpegIntensitySlider.addEventListener('input', () => {
+        if (document.querySelector('.toggle-filter[data-filter="jpeg"]').checked) {
+            applyJPEGCompression();
+        }
+    });
+
     // Add event listener for reset button if available
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) {
@@ -74,6 +82,13 @@ function toggleFilter(filterName, enabled) {
                 applyVCRLinesWithIntensity(parseInt(document.getElementById('vcr-lines-intensity').value, 10));
             } else {
                 clearVCRLines(context);
+            }
+            break;
+        case 'jpeg':
+            if (enabled) {
+                applyJPEGCompression();
+            } else {
+                clearJPEGCompression(context);
             }
             break;
         default:
@@ -232,6 +247,36 @@ function clearVCRLines(context) {
 
     // Reset stored image data
 currentVCRLinesData = null;
+}
+
+// Function to apply JPEG compression filter
+function applyJPEGCompression() {
+    const canvas = document.getElementById('modified-canvas');
+    const context = canvas.getContext('2d');
+    const jpegIntensitySlider = document.getElementById('jpeg-intensity');
+    const quality = jpegIntensitySlider.value / 100; // Convert slider value to a quality factor between 0 and 1
+
+    // Convert the image data to JPEG format with specified quality
+    const jpegImageData = canvas.toDataURL('image/jpeg', quality);
+
+    // Clear the canvas
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the compressed JPEG image onto the canvas
+    const img = new Image();
+    img.onload = function () {
+        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = jpegImageData;
+}
+
+// Function to clear JPEG compression (restore original image)
+function clearJPEGCompression(context) {
+    const originalImage = document.getElementById('original-image').querySelector('img');
+    if (!originalImage) return;
+
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.drawImage(originalImage, 0, 0, context.canvas.width, context.canvas.height);
 }
 
 // Function to reset image and all filters
