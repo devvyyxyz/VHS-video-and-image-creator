@@ -1,0 +1,104 @@
+/* Option section */
+.option-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Ensure boxes are spaced apart */
+    width: 100%; /* Ensure it takes full width */
+}
+
+.option {
+    background-color: #fff;
+    padding: 20px;
+    width: calc(50% - 20px); /* Ensure boxes are half width minus padding */
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.option h2 {
+    margin-top: 0;
+}
+
+.option-toggle {
+    margin-top: 10px;
+}
+
+.sub-options {
+    display: none; /* Initially hide sub-options */
+    margin-top: 10px;
+}
+
+.sub-options label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Toggle switch */
+.toggle-option {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.toggle-option input {
+    display: none;
+}
+
+.toggle-option span {
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle-option span:before {
+    content: '';
+    position: absolute;
+    height: 16px;
+    width: 30px;
+    background-color: #ccc;
+    border-radius: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: background-color 0.3s, left 0.3s;
+}
+
+.toggle-option input:checked + span:before {
+    background-color: #4CAF50;
+    left: calc(100% - 30px);
+}
+
+/* Slider styles */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 2px;
+    background: #ccc;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .15s ease-in-out;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+}

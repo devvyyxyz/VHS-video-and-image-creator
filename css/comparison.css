@@ -1,0 +1,47 @@
+/* Comparison section */
+.comparison-section {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.comparison-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comparison-wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.comparison-image {
+    width: 100%;
+    overflow: hidden;
+}
+
+.comparison-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#download-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#download-btn:hover {
+    background-color: #45a049;
+}

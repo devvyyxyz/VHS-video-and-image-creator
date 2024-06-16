@@ -3,26 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VHS Effect Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Image Comparison Tool</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/upload.css">
+    <link rel="stylesheet" href="css/comparison.css">
+    <link rel="stylesheet" href="css/options.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
-    <div class="container">
-        <h1>VHS Effect Generator</h1>
-        <input type="file" id="fileInput" accept="image/*, video/*">
-        <div id="previewContainer">
-            <canvas id="previewCanvas" width="400" height="300"></canvas>
-            <video id="previewVideo" width="400" height="300" controls></video>
-        </div>
-        <div id="options">
-            <label for="scanlinesRange">Scanlines Transparency:</label>
-            <input type="range" id="scanlinesRange" min="0" max="1" step="0.1" value="0.2">
-            
-            <label for="scanlinesIntensity">Scanlines Intensity:</label>
-            <input type="range" id="scanlinesIntensity" min="0" max="1" step="0.1" value="0.1">
-        </div>
-        <button id="applyEffectButton" disabled>Apply VHS Effect</button>
-    </div>
-    <script src="script.js"></script>
+    <header>
+        <h1>Image Comparison Tool</h1>
+    </header>
+
+    <main>
+        <section class="upload-section">
+            <h2>Upload Images</h2>
+            <input type="file" id="file-input" accept=".jpg, .jpeg, .png">
+        </section>
+
+        <section class="comparison-section">
+            <h2>Comparison</h2>
+            <div class="comparison-container">
+                <div class="comparison-wrapper">
+                    <div class="comparison-image" id="original-image">
+                        <img src="default.png" alt="Original Image">
+                    </div>
+                    <div class="comparison-image" id="modified-image">
+                        <img src="default.png" alt="Modified Image">
+                    </div>
+                </div>
+                <button id="download-btn">Download Updated Image</button>
+            </div>
+        </section>
+
+        <section class="option-section">
+            <div class="option">
+                <h2>CRT Filter</h2>
+                <div class="option-toggle">
+                    <label><input type="checkbox" class="toggle-option" data-option="crt" checked> Enable CRT Filter</label>
+                </div>
+                <div class="sub-options crt-options">
+                    <label>Transparency: <input type="range" min="0" max="100" value="0" class="transparency-slider"> <span class="transparency-value">0</span></label><br>
+                    <label>Intensity: <input type="range" min="0" max="100" value="0" class="intensity-slider"> <span class="intensity-value">0</span></label><br>
+                </div>
+            </div>
+
+            <div class="option">
+                <h2>Image Noise</h2>
+                <div class="option-toggle">
+                    <label><input type="checkbox" class="toggle-option" data-option="noise" checked> Enable Image Noise</label>
+                </div>
+                <div class="sub-options noise-options">
+                    <label>Transparency: <input type="range" min="0" max="100" value="0" class="transparency-slider"> <span class="transparency-value">0</span></label><br>
+                    <label>Intensity: <input type="range" min="0" max="100" value="0" class="intensity-slider"> <span class="intensity-value">0</span></label><br>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/upload.js"></script>
+    <script src="js/comparison.js"></script>
+    <script src="js/options.js"></script>
 </body>
 </html>
