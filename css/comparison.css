@@ -8,40 +8,52 @@
     width: 100%;
 }
 
+.comparison-section h2 {
+    margin-top: 0;
+}
+
 .comparison-container {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
     align-items: center;
 }
 
 .comparison-wrapper {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .comparison-image {
-    width: 100%;
-    overflow: hidden;
+    flex: 1;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.comparison-image img {
-    display: block;
+.comparison-image img, .comparison-image canvas {
     width: 100%;
     height: auto;
+    max-width: 100%;
+    border-radius: 5px;
+    display: block;
 }
 
-#download-btn {
-    margin-top: 10px;
+button#download-btn {
+    margin-top: 20px;
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #007bff;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-#download-btn:hover {
-    background-color: #45a049;
+button#download-btn:hover {
+    background-color: #0056b3;
 }

@@ -1,8 +1,8 @@
 document.getElementById('download-btn').addEventListener('click', () => {
-    const modifiedImage = document.getElementById('modified-image').querySelector('img');
+    const modifiedImageCanvas = document.getElementById('image-canvas');
 
     const link = document.createElement('a');
-    link.href = modifiedImage.src;
+    link.href = modifiedImageCanvas.toDataURL('image/png');
     link.download = 'updated-image.png';
     link.click();
 });

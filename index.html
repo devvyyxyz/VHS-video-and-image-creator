@@ -29,7 +29,7 @@
                         <img src="default.png" alt="Original Image">
                     </div>
                     <div class="comparison-image" id="modified-image">
-                        <img src="default.png" alt="Modified Image">
+                        <canvas id="image-canvas"></canvas>
                     </div>
                 </div>
                 <button id="download-btn">Download Updated Image</button>
@@ -37,25 +37,29 @@
         </section>
 
         <section class="option-section">
-            <div class="option">
+            <div class="option crt-option">
                 <h2>CRT Filter</h2>
                 <div class="option-toggle">
                     <label><input type="checkbox" class="toggle-option" data-option="crt" checked> Enable CRT Filter</label>
                 </div>
-                <div class="sub-options crt-options">
+                <div class="sub-option">
                     <label>Transparency: <input type="range" min="0" max="100" value="0" class="transparency-slider"> <span class="transparency-value">0</span></label><br>
+                </div>
+                <div class="sub-option">
                     <label>Intensity: <input type="range" min="0" max="100" value="0" class="intensity-slider"> <span class="intensity-value">0</span></label><br>
                 </div>
             </div>
 
-            <div class="option">
+            <div class="option noise-option">
                 <h2>Image Noise</h2>
                 <div class="option-toggle">
                     <label><input type="checkbox" class="toggle-option" data-option="noise" checked> Enable Image Noise</label>
                 </div>
-                <div class="sub-options noise-options">
+                <div class="sub-option">
                     <label>Transparency: <input type="range" min="0" max="100" value="0" class="transparency-slider"> <span class="transparency-value">0</span></label><br>
-                    <label>Intensity: <input type="range" min="0" max="100" value="0" class="intensity-slider"> <span class="intensity-value">0</span></label><br>
+                </div>
+                <div class="sub-option">
+                    <label>Intensity: <input type="range" min="0" max="100" value="50" class="intensity-slider" id="noise-intensity-slider"> <span class="intensity-value">50</span></label><br>
                 </div>
             </div>
         </section>
