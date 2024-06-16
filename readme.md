@@ -1,6 +1,6 @@
 # VHS Video and Image Creator
 
-![VHS Video and Image Creator](https://example.com/your-project-image.png)
+![VHS Video and Image Creator](project.png)
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/devvyyxyz/VHS-video-and-image-creator/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/devvyyxyz/VHS-video-and-image-creator)](https://github.com/devvyyxyz/VHS-video-and-image-creator/issues)
