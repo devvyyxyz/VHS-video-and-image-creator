@@ -53,21 +53,31 @@
                     <label><input type="checkbox" class="toggle-filter" data-filter="noise"> Noise</label>
                     <!-- Add noise intensity slider -->
                     <input type="range" id="noise-intensity" min="0" max="100" value="50">
+                    <input type="number" id="noise-intensity-value" name="noise-intensity-value" min="0" max="100" step="1">
                 </div>
                 <div class="filter-option">
                     <label><input type="checkbox" class="toggle-filter" data-filter="vcrLines"> VCR</label>
                     <input type="range" id="vcr-lines-intensity" min="0" max="100" value="50">
+                    <input type="number" id="vcr-lines-intensity-value" name="vcr-lines-intensity-value" min="1" max="100" step="1">
 <!-- Checkbox for VCR filter -->
                 </div>
                 <div class="filter-option">
                     <label><input type="checkbox" class="toggle-filter" data-filter="jpeg"> JPEG Compression</label>
                     <!-- Add JPEG compression intensity slider -->
                     <input type="range" id="jpeg-intensity" min="0" max="100" value="70">
+                    <input type="number" id="jpeg-intensity-value" name="jpeg-intensity-value" min="0" max="100" step="1">
                 </div>
                 <div class="filter-option">
                     <label><input type="checkbox" class="toggle-filter" data-filter="colorBleed"> Color Bleed</label>
                     <!-- Add color bleed intensity slider -->
                     <input type="range" id="color-bleed-intensity" min="0" max="100" value="50">
+                    <input type="number" id="color-bleed-intensity-value" name="color-bleed-intensity-value" min="0" max="255" step="1">
+                </div>
+                <div class="filter-option">
+                    <label><input type="checkbox" class="toggle-filter" data-filter="vhs">VHS</label>
+                    <!-- Add color bleed intensity slider -->
+                    <input type="range" id="vhs-intensity" min="0" max="100" value="50">
+                    <input type="number" id="vhs-intensity-value" name="vhs-intensity-value" min="0" max="255" step="1">
                 </div>
             </div>
         </section>

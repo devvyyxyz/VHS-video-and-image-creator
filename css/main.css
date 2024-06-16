@@ -1,27 +1,71 @@
-/* General styles */
+/* main.css */
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #000;
+    color: #00FF00;
+    text-align: center;
     padding: 0;
-    background-color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+    margin: 0;
 }
 
 header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
+    padding: 20px;
+    background: linear-gradient(90deg, #f06, #f79);
+    color: #fff;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    color: #ff00ff;
 }
 
 main {
-    flex: 1; /* Expand main content to fill remaining vertical space */
-    max-width: 800px;
+    padding: 20px;
+}
+
+button {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #ff00ff;
+    color: #fff;
+    border: 2px solid #00FF00;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #f06;
+}
+
+input[type="file"] {
+    display: block;
     margin: 20px auto;
-    padding: 0 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* Ensure boxes are spaced apart */
+    padding: 10px;
+    border: 2px solid #00FF00;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="file"]:hover {
+    background-color: #f06;
+}
+
+input[type="range"], input[type="number"] {
+    display: block;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+.filter-option {
+    margin: 10px 0;
+    text-align: left;
 }

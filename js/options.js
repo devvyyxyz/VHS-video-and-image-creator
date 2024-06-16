@@ -13,38 +13,78 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initialize VCR lines intensity slider if available
-    const vcrLinesIntensitySlider = document.getElementById('noise-intensity');
-    if (vcrLinesIntensitySlider) {
-        vcrLinesIntensitySlider.addEventListener('input', () => {
-            applyNoiseWithIntensity(parseInt(vcrLinesIntensitySlider.value, 10));
-        });
-    }
+    // Initialize VCR Lines Intensity slider and input field
+    const vcrLinesIntensitySlider = document.getElementById('vcr-lines-intensity');
+    const vcrLinesIntensityInput = document.getElementById('vcr-lines-intensity-value');
+    vcrLinesIntensitySlider.addEventListener('input', () => {
+        vcrLinesIntensityInput.value = vcrLinesIntensitySlider.value;
+        applyVCRLinesWithIntensity(parseInt(vcrLinesIntensitySlider.value, 10));
+    });
+    vcrLinesIntensityInput.addEventListener('input', () => {
+        vcrLinesIntensitySlider.value = vcrLinesIntensityInput.value;
+        applyVCRLinesWithIntensity(parseInt(vcrLinesIntensityInput.value, 10));
+    });
 
-    // Initialize noise intensity slider if available
-    const noiseIntensitySlider = document.getElementById('vcr-lines-intensity');
-    if (noiseIntensitySlider) {
-        noiseIntensitySlider.addEventListener('input', () => {
-            applyVCRLinesWithIntensity(parseInt(noiseIntensitySlider.value, 10));
-        });
-    }
+    // Initialize Noise Intensity slider and input field
+    const noiseIntensitySlider = document.getElementById('noise-intensity');
+    const noiseIntensityInput = document.getElementById('noise-intensity-value');
+    noiseIntensitySlider.addEventListener('input', () => {
+        noiseIntensityInput.value = noiseIntensitySlider.value;
+        applyNoiseWithIntensity(parseInt(noiseIntensitySlider.value, 10));
+    });
+    noiseIntensityInput.addEventListener('input', () => {
+        noiseIntensitySlider.value = noiseIntensityInput.value;
+        applyNoiseWithIntensity(parseInt(noiseIntensityInput.value, 10));
+    });
 
-    // Initialize JPEG compression intensity slider
+    // Initialize JPEG Compression slider and input field
     const jpegIntensitySlider = document.getElementById('jpeg-intensity');
+    const jpegIntensityInput = document.getElementById('jpeg-intensity-value');
     jpegIntensitySlider.addEventListener('input', () => {
+        jpegIntensityInput.value = jpegIntensitySlider.value;
         if (document.querySelector('.toggle-filter[data-filter="jpeg"]').checked) {
-            applyJPEGCompression();
+            applyJPEGCompression(parseInt(jpegIntensitySlider.value, 10));
+        }
+    });
+    jpegIntensityInput.addEventListener('input', () => {
+        jpegIntensitySlider.value = jpegIntensityInput.value;
+        if (document.querySelector('.toggle-filter[data-filter="jpeg"]').checked) {
+            applyJPEGCompression(parseInt(jpegIntensityInput.value, 10));
         }
     });
 
-    // Initialize color bleed intensity slider
+    // Initialize Color Bleed Intensity slider and input field
     const colorBleedIntensitySlider = document.getElementById('color-bleed-intensity');
+    const colorBleedIntensityInput = document.getElementById('color-bleed-intensity-value');
     colorBleedIntensitySlider.addEventListener('input', () => {
+        colorBleedIntensityInput.value = colorBleedIntensitySlider.value;
         if (document.querySelector('.toggle-filter[data-filter="colorBleed"]').checked) {
             applyColorBleed(parseInt(colorBleedIntensitySlider.value, 10));
         }
     });
+    colorBleedIntensityInput.addEventListener('input', () => {
+        colorBleedIntensitySlider.value = colorBleedIntensityInput.value;
+        if (document.querySelector('.toggle-filter[data-filter="colorBleed"]').checked) {
+            applyColorBleed(parseInt(colorBleedIntensityInput.value, 10));
+        }
+    });
 
+    // Initialize VHS Intensity slider and input field
+    const vhsIntensitySlider = document.getElementById('vhs-intensity');
+    const vhsIntensityInput = document.getElementById('vhs-intensity-value');
+    vhsIntensitySlider.addEventListener('input', () => {
+        vhsIntensityInput.value = vhsIntensitySlider.value;
+        if (document.querySelector('.toggle-filter[data-filter="vhs"]').checked) {
+            applyVHSCompression(parseInt(vhsIntensitySlider.value, 10));
+        }
+    });
+    vhsIntensityInput.addEventListener('input', () => {
+        vhsIntensitySlider.value = vhsIntensityInput.value;
+        if (document.querySelector('.toggle-filter[data-filter="vhs"]').checked) {
+            applyVHSCompression(parseInt(vhsIntensityInput.value, 10));
+        }
+    });
+    
     // Add event listener for reset button if available
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) {
@@ -104,6 +144,13 @@ function toggleFilter(filterName, enabled) {
                 applyColorBleed(parseInt(document.getElementById('color-bleed-intensity').value, 10));
             } else {
                 clearColorBleed(context);
+            }
+            break;
+        case 'vhs':
+            if (enabled) {
+                applyVHSCompression(parseInt(document.getElementById('vhs-intensity').value, 10));
+            } else {
+                clearVHSCompression(context);
             }
             break;
         default:
@@ -264,12 +311,10 @@ function clearVCRLines(context) {
 currentVCRLinesData = null;
 }
 
-// Function to apply JPEG compression filter
-function applyJPEGCompression() {
+function applyJPEGCompression(quality) {
     const canvas = document.getElementById('modified-canvas');
     const context = canvas.getContext('2d');
-    const jpegIntensitySlider = document.getElementById('jpeg-intensity');
-    const quality = jpegIntensitySlider.value / 100; // Convert slider value to a quality factor between 0 and 1
+    quality = quality / 100; // Convert to a quality factor between 0 and 1
 
     // Convert the image data to JPEG format with specified quality
     const jpegImageData = canvas.toDataURL('image/jpeg', quality);
@@ -284,6 +329,7 @@ function applyJPEGCompression() {
     };
     img.src = jpegImageData;
 }
+
 
 // Function to clear JPEG compression (restore original image)
 function clearJPEGCompression(context) {
@@ -316,6 +362,51 @@ function applyColorBleed(intensity) {
 
 // Function to clear color bleed filter
 function clearColorBleed(context) {
+    const originalImage = document.getElementById('original-image').querySelector('img');
+    if (!originalImage) return;
+
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.drawImage(originalImage, 0, 0, context.canvas.width, context.canvas.height);
+}
+
+// Function to apply VHS compression effect
+function applyVHSCompression(intensity) {
+    const canvas = document.getElementById('modified-canvas');
+    const context = canvas.getContext('2d');
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    // Apply noise
+    for (let i = 0; i < data.length; i += 4) {
+        const rand = Math.random() * intensity / 2;
+        data[i] = data[i] + rand; // Red
+        data[i + 1] = data[i + 1] + rand; // Green
+        data[i + 2] = data[i + 2] + rand; // Blue
+    }
+
+    // Apply color bleed
+    for (let i = 0; i < data.length; i += 4) {
+        const rand = Math.random() * intensity / 4;
+        data[i] = data[i] + rand; // Red
+        data[i + 1] = data[i + 1] - rand; // Green
+        data[i + 2] = data[i + 2] + rand; // Blue
+    }
+
+    // Apply horizontal line artifacts
+    for (let i = 0; i < data.length; i += 4 * canvas.width) {
+        const rand = Math.random() * intensity / 2;
+        for (let j = 0; j < 4 * canvas.width; j += 4) {
+            data[i + j] = data[i + j] + rand; // Red
+            data[i + j + 1] = data[i + j + 1] + rand; // Green
+            data[i + j + 2] = data[i + j + 2] + rand; // Blue
+        }
+    }
+
+    context.putImageData(imageData, 0, 0);
+}
+
+// Function to clear VHS compression effect
+function clearVHSCompression(context) {
     const originalImage = document.getElementById('original-image').querySelector('img');
     if (!originalImage) return;
 
